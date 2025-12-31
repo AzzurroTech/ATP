@@ -1,13 +1,18 @@
 version: "3.9"
 
 services:
+  # ---------------------------------------------------------
+  # ATP – hardened Go server (internal only)
+  # ---------------------------------------------------------
   atp:
     build: .
     container_name: atp
     restart: unless-stopped
     expose:
-      - "8080"
+      - "8080"               # only exposed to the internal network
     read_only: true
+    environment:
+      ATTP_HMAC_SECRET: "${ATTP_HMAC_SECRET:-change-me-to-a-long-random-string}"
     volumes:
       - atp_data:/data
     cap_drop:
@@ -17,6 +22,9 @@ services:
     security_opt:
       - no-new-privileges:true
 
+  # ---------------------------------------------------------
+  # Caddy – reverse proxy with automatic TLS
+  # ---------------------------------------------------------
   caddy:
     image: caddy:2-alpine
     container_name: caddy
@@ -27,6 +35,7 @@ services:
     read_only: true
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./web/static:/srv/web/static:ro   # static assets for Caddy
       - caddy_data:/data
       - caddy_config:/config
     depends_on:

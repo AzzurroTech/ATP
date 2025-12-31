@@ -1,6 +1,32 @@
 # -------------------------------------------------------------
-# Caddy reverse proxy for ATP
+# Caddy reverse proxy for ATP with automatic TLS
 # -------------------------------------------------------------
-:80 {
+
+# Redirect all HTTP traffic to HTTPS
+http:// {
+    redir https://{host}{uri} permanent
+}
+
+# HTTPS site (Caddy will obtain certificates automatically)
+https:// {
+    # Enable compression (gzip, brotli)
+    encode gzip zstd
+
+    # Cache static assets aggressively
+    header {
+        # Security headers
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'"
+        Referrer-Policy "no-referrer"
+    }
+
+    # Serve static files directly (CSS, JS, images, etc.)
+    handle_path /static/* {
+        root * /srv/web/static
+        file_server
+    }
+
+    # Proxy all other requests to the Go backend
     reverse_proxy atp:8080
 }

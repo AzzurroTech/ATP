@@ -1,6 +1,5 @@
 {{/* -----------------------------------------------------------
-   index.html.tmpl – ATP UI
-   Rendered by Go's html/template (no external dependencies)
+   index.html.tmpl – ATP UI (now loads ES‑6 modules)
    ----------------------------------------------------------- */}}
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +17,13 @@
         <button id="loginBtn">Log In</button>
         <button id="logoutBtn" hidden>Log Out</button>
     </nav>
+
+    <!-- Search / Filter (fluid & responsive) -->
+    <input type="search"
+           id="searchInput"
+           placeholder="Search fields…"
+           autocomplete="off"
+           aria-label="Search fields">
 </header>
 
 <main id="mainContent" aria-label="Form workspace">
@@ -37,7 +43,10 @@
         <form id="libraryForm" autocomplete="off">
             <label>
                 Template name:
-                <input type="text" id="libName" placeholder="e.g. Contact Form" required>
+                <input type="text"
+                       id="libName"
+                       placeholder="e.g. Contact Form"
+                       required>
             </label>
 
             <fieldset id="inputsFieldset">
@@ -72,10 +81,16 @@
         <button id="syncUploadBtn">Upload Encrypted Context</button>
         <button id="syncDownloadBtn">Download Encrypted Context</button>
 
+        <!-- Manual “Push to server” button -->
         <button id="pushBtn">Push Current State to Server</button>
     </section>
 </footer>
 
-<script src="/static/ui.js"></script>
+<!-- Simple spinner (hidden by default) -->
+<div id="spinnerOverlay" hidden aria-live="polite">
+    <div class="spinner"></div>
+</div>
+
+<script type="module" src="/static/ui.js"></script>
 </body>
 </html>
