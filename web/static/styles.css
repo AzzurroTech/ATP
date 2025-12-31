@@ -1,0 +1,274 @@
+/* -----------------------------------------------------------
+   styles.css – ATP UI styling
+   Palette: Cornflower Blue (#6495ED) + White (#FFFFFF)
+   Dolphin logo: https://azzurro.tech/logo-dolphin.svg
+   ----------------------------------------------------------- */
+
+/* ---- CSS Custom Properties (variables) ---- */
+:root {
+    --primary-color: #6495ED;   /* Cornflower Blue */
+    --bg-color: #FFFFFF;       /* White */
+    --text-color: #222222;     /* Dark gray for readability */
+    --border-radius: 4px;
+    --spacing-unit: 1rem;
+    --font-stack: system-ui, -apple-system, BlinkMacSystemFont,
+                  "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ---- Global resets & base typography ---- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+    font-family: var(--font-stack);
+    line-height: 1.5;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: var(--spacing-unit);
+}
+
+/* ---- Layout containers (semantic elements) ---- */
+header,
+footer,
+main,
+aside {
+    margin-bottom: var(--spacing-unit);
+}
+
+/* ---- Header ------------------------------------------------ */
+header {
+    background: var(--primary-color);
+    color: var(--bg-color);
+    padding: calc(var(--spacing-unit) * 0.75) var(--spacing-unit);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+header nav button {
+    background: var(--bg-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+}
+header nav button:hover {
+    background: rgba(255,255,255,0.85);
+}
+
+/* ---- Main workspace ---------------------------------------- */
+main {
+    flex: 1;
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-unit);
+    background-image: url('https://azzurro.tech/logo-dolphin.svg');
+    background-repeat: no-repeat;
+    background-position: top right 1rem;
+    background-size: 80px auto;
+    overflow-y: auto;
+}
+main .placeholder {
+    color: #777;
+    font-style: italic;
+}
+
+/* ---- Article (individual form instance) ------------------- */
+article {
+    border: 1px solid #cfd8dc;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-unit);
+    margin-bottom: var(--spacing-unit);
+    position: relative;
+    background: #fafafa;
+}
+article header {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+article button.control {
+    position: absolute;
+    top: 0.35rem;
+    right: 0.35rem;
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    width: 1.6rem;
+    height: 1.6rem;
+    font-size: 0.9rem;
+    line-height: 1.6rem;
+    text-align: center;
+    cursor: pointer;
+}
+article button.control:hover {
+    opacity: 0.85;
+}
+
+/* ---- Aside (ads) ------------------------------------------ */
+aside {
+    border: 2px dashed var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-unit);
+    background: #f0f8ff; /* very light blue */
+}
+aside h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+.ad-item {
+    background: var(--bg-color);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ---- Footer (library + context controls) ------------------ */
+footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
+}
+
+/* Sections inside the footer */
+footer section {
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-unit);
+    background: #f9fbff;
+}
+
+/* ---- Form Library ---------------------------------------- */
+#libraryForm label,
+#libraryForm input,
+#libraryForm select,
+#libraryForm button {
+    display: block;
+    width: 100%;
+    margin-top: 0.3rem;
+}
+#libraryForm input,
+#libraryForm select {
+    padding: 0.35rem;
+    border: 1px solid #bbb;
+    border-radius: var(--border-radius);
+}
+#libraryForm button {
+    margin-top: 0.6rem;
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+#libraryForm button:hover {
+    opacity: 0.9;
+}
+
+/* Input rows inside the fieldset */
+.input-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.4rem;
+}
+.input-row input,
+.input-row select {
+    flex: 1;
+}
+.input-row button {
+    flex: 0 0 auto;
+    background: #e53935; /* red for delete */
+    color: var(--bg-color);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+}
+.input-row button:hover {
+    opacity: 0.85;
+}
+
+/* Saved template list */
+#templateList {
+    list-style: disc inside;
+    margin-top: 0.5rem;
+}
+#templateList li {
+    margin-bottom: 0.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#templateList button {
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+}
+#templateList button:hover {
+    opacity: 0.9;
+}
+
+/* ---- Context Controls ------------------------------------- */
+#contextControls button,
+#contextControls input[type="file"] {
+    width: 100%;
+    margin-top: 0.4rem;
+    padding: 0.45rem;
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    background: var(--bg-color);
+    cursor: pointer;
+}
+#contextControls button:hover,
+#contextControls input[type="file"]:hover {
+    background: #e6f0ff;
+}
+
+/* File input styling (hide default button) */
+.file-input {
+    display: block;
+    position: relative;
+}
+.file-input input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+}
+
+/* ---- Responsive adjustments ------------------------------ */
+@media (min-width: 768px) {
+    footer {
+        flex-direction: row;
+        gap: var(--spacing-unit);
+    }
+    footer section {
+        flex: 1;
+        margin: 0;
+    }
+    main {
+        background-size: 120px auto;
+    }
+}

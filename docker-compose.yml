@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  atp:
+    build: .
+    container_name: atp
+    restart: unless-stopped
+    expose:
+      - "8080"
+    read_only: true
+    volumes:
+      - atp_data:/data
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    read_only: true
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - atp
+    user: "1000:1000"
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  atp_data:
+  caddy_data:
+  caddy_config:

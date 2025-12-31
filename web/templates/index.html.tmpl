@@ -1,0 +1,81 @@
+{{/* -----------------------------------------------------------
+   index.html.tmpl – ATP UI
+   Rendered by Go's html/template (no external dependencies)
+   ----------------------------------------------------------- */}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Azzurro Technical Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Azzurro Technical Platform</h1>
+    <nav aria-label="Primary navigation">
+        <button id="loginBtn">Log In</button>
+        <button id="logoutBtn" hidden>Log Out</button>
+    </nav>
+</header>
+
+<main id="mainContent" aria-label="Form workspace">
+    <p class="placeholder">No forms added yet. Use the Form Library below.</p>
+</main>
+
+<aside id="adPane" aria-label="Relevant ads">
+    <h2>Sponsored</h2>
+    <div id="adsContainer"></div>
+</aside>
+
+<footer>
+    <!-- ==== Form Library (templates) ==== -->
+    <section id="librarySection">
+        <h2>Form Library</h2>
+
+        <form id="libraryForm" autocomplete="off">
+            <label>
+                Template name:
+                <input type="text" id="libName" placeholder="e.g. Contact Form" required>
+            </label>
+
+            <fieldset id="inputsFieldset">
+                <legend>Inputs</legend>
+                <!-- Input rows are added dynamically by UI JS -->
+            </fieldset>
+
+            <button type="button" id="addInputBtn">Add Input</button>
+            <button type="submit">Save Template</button>
+        </form>
+
+        <h3>Saved Templates</h3>
+        <ul id="templateList"></ul>
+    </section>
+
+    <!-- ==== Context actions (export / import / sync) ==== -->
+    <section id="contextControls">
+        <h2>Context Management</h2>
+
+        <button id="exportBtn">Export Context (JSON)</button>
+
+        <label class="file-input">
+            Import Context:
+            <input type="file" id="importFile" accept=".json">
+        </label>
+
+        <button id="encryptBtn">Encrypt Context</button>
+        <button id="decryptBtn">Decrypt Context</button>
+
+        <hr>
+
+        <button id="syncUploadBtn">Upload Encrypted Context</button>
+        <button id="syncDownloadBtn">Download Encrypted Context</button>
+
+        <button id="pushBtn">Push Current State to Server</button>
+    </section>
+</footer>
+
+<script src="/static/ui.js"></script>
+</body>
+</html>
