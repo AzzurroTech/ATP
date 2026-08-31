@@ -1,33 +1,40 @@
+// Package main implements the AzzurroTech Platform (atp) as the central integration hub
 package main
 
 import (
-	"html/template"
-	"net/http"
+	"flag"
+	"fmt"
+	"log"
+
+	"azzurrotech/atp/web"
 )
 
-type Component struct {
-	Name        string
-	Description string
-	Port        string
-	Link        string
-}
-
 func main() {
-	components := []Component{
-		{Name: "launch", Description: "Docker Compose generator & orchestrator", Port: "8081", Link: "http://localhost:8081"},
-		{Name: "pod", Description: "HTML form database & query engine", Port: "8082", Link: "http://localhost:8082"},
-		{Name: "vici", Description: "Card-based timeline & lore builder", Port: "8083", Link: "http://localhost:8083"},
-		{Name: "vidi", Description: "Visual HTML template generator", Port: "8084", Link: "http://localhost:8084"},
-		{Name: "veni", Description: "Visual web crawler & link mapper", Port: "8085", Link: "http://localhost:8085"},
-		{Name: "shepherd", Description: "Universal network & AI firewall", Port: "8086", Link: "http://localhost:8086"},
-		{Name: "song", Description: "HATEOAS stateless API generator", Port: "8087", Link: "http://localhost:8087"},
+	port := flag.String("port", "8080", "Port to listen on (default: 8080)")
+	help := flag.Bool("help", false, "Show help message")
+	version := flag.Bool("version", false, "Show version information")
+
+	flag.Parse()
+
+	if *help {
+		fmt.Println("Usage: atp [options]")
+		fmt.Println("  --port     Set the port to listen on (default: 8080)")
+		fmt.Println("  --help     Show this help message")
+		fmt.Println("  --version  Show version information")
+		return
 	}
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		tmpl := template.Must(template.ParseFiles("templates/index.html"))
-		tmpl.Execute(w, components)
-	})
+	if *version {
+		fmt.Println("AzzurroTech Platform (ATP) v1.0.0")
+		fmt.Println("Central Integration Hub for AzzurroTech Services")
+		fmt.Println("Copyright 2025 Azzurro Technology Inc.")
+		fmt.Println("Services: stenella, pod, song, shepherd, and emperor42 platforms")
+		return
+	}
 
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	http.ListenAndServe(":8080", nil)
+	// Create and start the ATP platform service
+	atpService := web.NewATPService(*port)
+	if err := atpService.Start(); err != nil {
+		log.Fatalf("Failed to start ATP platform: %v", err)
+	}
 }
